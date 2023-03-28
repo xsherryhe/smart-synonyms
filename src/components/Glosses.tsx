@@ -1,3 +1,3 @@
 export default function Glosses() {
-  return <></>;
+  return <>Glosses Page</>;
 }

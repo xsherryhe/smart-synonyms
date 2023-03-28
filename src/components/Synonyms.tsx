@@ -1,3 +1,3 @@
 export default function Synonyms() {
-  return <></>;
+  return <>Synonyms Page</>;
 }
