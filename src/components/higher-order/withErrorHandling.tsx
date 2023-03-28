@@ -1,5 +1,5 @@
 import { ComponentType, useCallback, useState } from 'react';
-import ErrorResponse from '../../interfaces/ErrorResponse';
+import { ErrorResponse } from '../../interfaces/FetcherResponse';
 
 export interface WithErrorHandlingProps {
   handleErrors(response: ErrorResponse): void;

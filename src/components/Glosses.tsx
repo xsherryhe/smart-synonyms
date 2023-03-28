@@ -7,7 +7,6 @@ import {
   withErrorHandling,
   WithErrorHandlingProps,
 } from './higher-order/withErrorHandling';
-import ErrorResponse from '../interfaces/ErrorResponse';
 
 interface GlossesBaseProps extends WithErrorHandlingProps {}
 
@@ -18,9 +17,8 @@ function GlossesBase({ handleErrors }: GlossesBaseProps) {
   useEffect(() => {
     async function getGlosses() {
       const response = await fetcher(`words/${word}`);
-      if (response.status && response.status < 400)
-        setGlosses(response.data as GlossesType);
-      else handleErrors(response as ErrorResponse);
+      if (response.type === 'success') setGlosses(response.data as GlossesType);
+      else handleErrors(response);
     }
     getGlosses();
   }, [word, handleErrors]);

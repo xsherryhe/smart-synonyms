@@ -1,5 +1,5 @@
 import server from './server';
-import ErrorResponse from './interfaces/ErrorResponse';
+import { FetcherResponse } from './interfaces/FetcherResponse';
 
 const errorMessage = 'Sorry, something went wrong.';
 const statusErrorMessage = (status: number) =>
@@ -23,7 +23,7 @@ export default async function fetcher(
     query = '',
     ...options
   }: { headers?: {}; query?: string } = {}
-) {
+): Promise<FetcherResponse> {
   let response: Response;
   try {
     response = await duration(
@@ -35,8 +35,10 @@ export default async function fetcher(
       })
     );
   } catch {
-    const errorResponse: ErrorResponse = { data: { error: errorMessage } };
-    return errorResponse;
+    return {
+      type: 'error',
+      data: { error: errorMessage },
+    };
   }
 
   const status = response.status;
@@ -47,12 +49,12 @@ export default async function fetcher(
     data = {};
   }
 
-  if (status < 400) return { status, data };
+  if (status < 400) return { type: 'success', status, data };
   else {
-    const errorResponse: ErrorResponse = {
+    return {
+      type: 'error',
       status,
       data: { error: statusErrorMessage(status) },
     };
-    return errorResponse;
   }
 }
