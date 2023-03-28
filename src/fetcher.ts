@@ -3,7 +3,7 @@ import ErrorResponse from './interfaces/ErrorResponse';
 
 const errorMessage = 'Sorry, something went wrong.';
 const statusErrorMessage = (status: number) =>
-  ({ 404: 'Page not found.' }[status] || 'Sorry, something went wrong.');
+  ({ 404: 'Page not found.' }[status] || errorMessage);
 
 function duration(milliseconds: number, promise: Promise<any>) {
   const timeout: Promise<Error> = new Promise((_, reject) =>
