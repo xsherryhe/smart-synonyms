@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Search() {
-  const [searchValue, setSearchValue] = useState('');
+export default function Search({ word = '' }) {
+  const [searchValue, setSearchValue] = useState(word);
 
   function updateSearchValue(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchValue(e.target.value);
