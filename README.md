@@ -29,5 +29,6 @@ This project is currently in progress. See my developer notes below!
 
 ### This app was my first time building with...
 
-- [WordNet 3.0 Database from Princeton University](https://wordnet.princeton.edu/)
+- Figma for UI/UX design
 - TypeScript in React
+- [WordNet 3.0 Database from Princeton University](https://wordnet.princeton.edu/)
