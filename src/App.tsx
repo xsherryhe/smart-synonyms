@@ -12,7 +12,7 @@ function App() {
           <Route path="/" element={<Home />}/>
           <Route path="/home" element={<Home />}/>
           <Route path="/:word" element={<Glosses />} />
-          <Route path="/:pos/:posOffset/synonyms" element={<Synonyms />} />
+          <Route path="/:word/:pos/:posOffset/synonyms" element={<Synonyms />} />
         </Routes>
       </BrowserRouter>
     </div>
