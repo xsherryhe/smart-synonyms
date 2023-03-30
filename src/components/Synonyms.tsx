@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import fetcher from '../fetcher';
 import SynsetWithSynonyms from '../interfaces/Synset';
+import Header from './Header';
 import {
   withErrorHandling,
   WithErrorHandlingProps,
 } from './higher-order/withErrorHandling';
-import Search from './Search';
 
 interface SynonymsBaseProps extends WithErrorHandlingProps {}
 
@@ -33,7 +33,7 @@ function SynonymsBase({ handleErrors }: SynonymsBaseProps) {
   if (!synset) return <div>Loading...</div>;
   return (
     <>
-      <Search word={word} />
+      <Header searchWord={word} />
       <h1>{synset.words.join(' ')}</h1>
       <h2>{synset.definition}</h2>
       {synset.synonyms.map(({ words, definition }) => (

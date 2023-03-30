@@ -7,7 +7,7 @@ import {
   withErrorHandling,
   WithErrorHandlingProps,
 } from './higher-order/withErrorHandling';
-import Search from './Search';
+import Header from './Header';
 
 interface GlossesBaseProps extends WithErrorHandlingProps {}
 
@@ -27,7 +27,7 @@ function GlossesBase({ handleErrors }: GlossesBaseProps) {
   if (!glosses) return <div>Loading...</div>;
   return (
     <>
-      <Search word={word} />
+      <Header searchWord={word} />
       {glosses.map(({ id, pos, synsets }) => (
         <div key={id}>
           <h2>{partsOfSpeech[pos]}</h2>
