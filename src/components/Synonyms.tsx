@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import fetcher from '../fetcher';
-import SynsetWithSynonyms from '../interfaces/Synset';
+import { SynsetWithSynonyms } from '../interfaces/Synset';
 import Header from './Header';
 import {
   withErrorHandling,
@@ -37,7 +37,7 @@ function SynonymsBase({ handleErrors }: SynonymsBaseProps) {
       <h1>{synset.words.join(' ')}</h1>
       <h2>{synset.definition}</h2>
       {synset.synonyms.map(({ words, definition }) => (
-        <div>
+        <div key={words.join(' ')}>
           <h3>{words.join(' ')}</h3>
           <p>{definition}</p>
         </div>

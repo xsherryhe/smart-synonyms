@@ -1,16 +1,14 @@
 import { PartOfSpeechChar } from './PartOfSpeech';
-
-interface Synset {
-  pos_offset: number;
-  gloss: string;
-}
+import { Synset } from './Synset';
 
 interface Gloss {
   id: string;
-  word: string;
   pos: PartOfSpeechChar;
   synsets: Synset[];
 }
 
-type GlossesType = Gloss[];
-export default GlossesType;
+interface Word {
+  word: string;
+  glosses: Gloss[];
+}
+export default Word;
