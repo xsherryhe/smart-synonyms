@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
+import './styles/App.css';
 import Glosses from './components/Glosses';
 import Home from './components/Home';
 import Synonyms from './components/Synonyms';
@@ -9,10 +9,13 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}/>
-          <Route path="/home" element={<Home />}/>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/:word" element={<Glosses />} />
-          <Route path="/:word/:pos/:posOffset/synonyms" element={<Synonyms />} />
+          <Route
+            path="/:word/:pos/:posOffset/synonyms"
+            element={<Synonyms />}
+          />
         </Routes>
       </BrowserRouter>
     </div>
