@@ -22,8 +22,8 @@ export default function Search({ word = '', placeholder = 'Search...' }) {
         placeholder={placeholder}
         className="search-input"
       />
-      <Link to={`/${searchValue}`}>
-        <button className="search-button">
+      <Link className="search-button-link" to={`/${searchValue}`}>
+        <button className="search-button" tabIndex={-1}>
           <FontAwesomeIcon icon={faSearch} title="Search" />
         </button>
       </Link>
