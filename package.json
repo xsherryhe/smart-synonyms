@@ -13,7 +13,6 @@
     "@types/node": "^16.18.21",
     "@types/react": "^18.0.29",
     "@types/react-dom": "^18.0.11",
-    "normalize.css": "^8.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.9.0",
@@ -48,6 +47,8 @@
   },
   "devDependencies": {
     "eslint-config-prettier": "^8.8.0",
-    "prettier": "2.8.7"
+    "prettier": "2.8.7",
+    "prettier-plugin-tailwindcss": "^0.2.6",
+    "tailwindcss": "^3.3.1"
   }
 }
