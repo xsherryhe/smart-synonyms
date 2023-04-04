@@ -7,17 +7,9 @@
 
 .search-input {
   flex: 1 1 0;
-  border: 1px solid transparent;
-  border-right: none;
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
   padding: 0.25rem
-}
-
-.search-input:focus-visible, 
-.search-button-link:focus-visible {
-  outline: none;
-  border: 1px solid var(--gray-color);
 }
 
 .search-input:focus-visible {
@@ -30,7 +22,6 @@
 
 .search-button-link {
   background-color: var(--light-color);
-  border: 1px solid transparent;
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
   width: 2rem;
@@ -40,6 +31,7 @@
   background-color: transparent;
   border: none;
   height: 100%;
+  width: 100%;
 }
 
 .search-button svg {

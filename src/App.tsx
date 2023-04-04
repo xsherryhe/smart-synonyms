@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './styles/App.css';
 import Glosses from './components/Glosses';
 import Home from './components/Home';
 import Synonyms from './components/Synonyms';
