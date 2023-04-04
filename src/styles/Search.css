@@ -14,7 +14,8 @@
   padding: 0.25rem
 }
 
-.search-input:focus-visible, .search-button-link:focus-visible {
+.search-input:focus-visible, 
+.search-button-link:focus-visible {
   outline: none;
   border: 1px solid var(--gray-color);
 }
@@ -25,10 +26,6 @@
 
 .search-input:focus-visible ~ .search-button-link {
   border: 1px solid var(--gray-color);
-}
-
-.search-button-link:focus-visible {
-  border-radius: 2px;
 }
 
 .search-button-link {
@@ -47,4 +44,12 @@
 
 .search-button svg {
   color: var(--dark-color);
+}
+
+.search-button-link:hover {
+  background-color: var(--dark-highlight-color);
+}
+
+.search-button-link:hover svg {
+  color: var(--light-color);
 }
