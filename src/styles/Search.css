@@ -25,7 +25,6 @@
 
 .search-input:focus-visible ~ .search-button-link {
   border: 1px solid var(--gray-color);
-  border-left: none;
 }
 
 .search-button-link:focus-visible {
@@ -35,7 +34,6 @@
 .search-button-link {
   background-color: var(--light-color);
   border: 1px solid transparent;
-  border-left: none;
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
   width: 2rem;
