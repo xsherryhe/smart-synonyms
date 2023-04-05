@@ -1,7 +1,0 @@
-.home .search-input:focus-visible ~ .search-button-link {
-  border: 1px solid var(--dark-color);
-}
-
-.home .search-input:focus-visible {
-  border-right: none;
-}
