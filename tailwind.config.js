@@ -9,6 +9,7 @@ module.exports = {
       gray: '#9099A2',
       white: '#FFFFFF',
       black: '#000000',
+      transparent: 'transparent',
     },
     extend: {
       fontFamily: {
