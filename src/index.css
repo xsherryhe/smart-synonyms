@@ -10,4 +10,8 @@
   * {
     box-sizing: border-box;
   }
+
+  a {
+    @apply outline-none border-transparent border-2 border-solid focus-visible:border-gray;
+  }
 }
