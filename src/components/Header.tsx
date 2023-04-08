@@ -7,7 +7,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export default function Header({ searchWord = '' }) {
   return (
     <header className="flex items-center justify-center gap-4 bg-dark p-2">
-      <Link className="flex text-4xl text-light" to="/">
+      <Link
+        className="flex rounded-sm border-2 border-solid border-transparent text-3xl text-light outline-none hover:border-light hover:bg-dark-highlight focus-visible:border-gray"
+        to="/"
+      >
         <FontAwesomeIcon className="" icon={faHouse} />
       </Link>
       <Search word={searchWord} />

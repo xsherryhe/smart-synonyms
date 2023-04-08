@@ -23,14 +23,14 @@ export default function Search({
         onChange={updateSearchValue}
         value={searchValue}
         placeholder={placeholder}
-        className={`search-input peer flex-1 rounded-l-sm border border-r-0 border-solid p-1 outline-none ${borderColorTailwind}`}
+        className={`peer flex-1 rounded-l-sm border-2 border-r-0 border-solid p-1 outline-none ${borderColorTailwind}`}
       />
       <Link
-        className={`search-button-link w-8 rounded-r-sm border border-solid bg-light text-dark outline-none hover:bg-dark-highlight hover:text-light ${borderColorTailwind}`}
+        className={`w-8 rounded-r-sm border-2 border-solid bg-light text-dark outline-none hover:bg-dark-highlight hover:text-light ${borderColorTailwind}`}
         to={`/${searchValue}`}
       >
         <button
-          className="search-button bg-transparent h-full w-full border-none"
+          className="h-full w-full border-none bg-transparent"
           tabIndex={-1}
         >
           <FontAwesomeIcon icon={faSearch} title="Search" />
