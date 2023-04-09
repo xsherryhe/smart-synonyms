@@ -30,7 +30,7 @@ export default function GlossesMain({ word, wordData }: GlossesMainInteface) {
               to={`/${word}/${pos}/${posOffset}/synonyms`}
               className="rounded-sm bg-dark text-white hover:bg-dark-highlight"
             >
-              <button tabIndex={-1}>
+              <button tabIndex={-1} className="w-full">
                 <div className="m-2 font-semibold">{definition}</div>
                 <div className="m-1 text-sm italic">{examples.join(' • ')}</div>
               </button>
