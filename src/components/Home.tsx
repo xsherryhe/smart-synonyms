@@ -5,7 +5,7 @@ export default function Home() {
     <main className="flex min-h-screen justify-center pt-[35vh]">
       <Search
         placeholder="Search a word..."
-        borderColorTailwind="border-gray focus-visible:border-dark peer-focus-visible:border-dark"
+        borderTailwind="border-gray border focus-visible:border-dark peer-focus-visible:border-dark"
       />
     </main>
   );
