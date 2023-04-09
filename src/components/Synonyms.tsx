@@ -36,8 +36,8 @@ function SynonymsBase({ handleErrors }: SynonymsBaseProps) {
       <Header searchWord={word} />
       <h1>{synset.words.join(' ')}</h1>
       <h2>{synset.definition}</h2>
-      {synset.synonyms.map(({ words, definition }) => (
-        <div key={words.join(' ')}>
+      {synset.synonyms.map(({ pos_offset: posOffset, words, definition }) => (
+        <div key={posOffset}>
           <h3>{words.join(' ')}</h3>
           <p>{definition}</p>
         </div>
