@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import fetcher from '../fetcher';
 import { SynsetWithSynonyms } from '../interfaces/Synset';
@@ -18,17 +18,19 @@ function SynonymsBase({ handleErrors }: SynonymsBaseProps) {
   };
   const [synset, setSynset] = useState<SynsetWithSynonyms | null>(null);
 
-  useEffect(() => {
-    async function getSynset() {
-      const response = await fetcher(`synsets/${pos}/${posOffset}`, {
-        query: `word=${word}`,
-      });
-      if (response.type === 'success')
-        setSynset(response.data as SynsetWithSynonyms);
-      else handleErrors(response);
-    }
-    getSynset();
+  const getSynset = useCallback(async () => {
+    setSynset(null);
+    const response = await fetcher(`synsets/${pos}/${posOffset}`, {
+      query: `word=${word}`,
+    });
+    if (response.type === 'success')
+      setSynset(response.data as SynsetWithSynonyms);
+    else handleErrors(response);
   }, [word, pos, posOffset, handleErrors]);
+
+  useEffect(() => {
+    getSynset();
+  }, [getSynset]);
 
   if (!synset) return <div>Loading...</div>;
   return (
@@ -42,6 +44,12 @@ function SynonymsBase({ handleErrors }: SynonymsBaseProps) {
           <p>{definition}</p>
         </div>
       ))}
+      <button
+        onClick={getSynset}
+        className="rounded-sm bg-dark text-white hover:bg-dark-highlight"
+      >
+        Regenerate
+      </button>
     </>
   );
 }
