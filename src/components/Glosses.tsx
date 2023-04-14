@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import fetcher from '../fetcher';
 import Word from '../interfaces/Word';
@@ -15,6 +15,10 @@ function GlossesBase({ handleErrors }: GlossesBaseProps) {
   const { word } = useParams() as { word: string };
   const [wordData, setWordData] = useState<Word | false | null>(null);
 
+  const resetFocusRef = useRef<HTMLDivElement | HTMLHeadingElement | null>(
+    null
+  );
+
   useEffect(() => {
     async function getGlosses() {
       const response = await fetcher(`words/${word}`);
@@ -25,10 +29,26 @@ function GlossesBase({ handleErrors }: GlossesBaseProps) {
     getGlosses();
   }, [word, handleErrors]);
 
+  useEffect(() => {
+    if (resetFocusRef.current) resetFocusRef.current.focus();
+  }, [wordData]);
+
   let main;
   if (wordData === null) main = <div>Loading...</div>;
-  else if (wordData === false) main = <div>Word not found!</div>;
-  else main = <GlossesMain word={word} wordData={wordData} />;
+  else if (wordData === false)
+    main = (
+      <div className="outline-none" tabIndex={-1} ref={resetFocusRef}>
+        Word not found!
+      </div>
+    );
+  else
+    main = (
+      <GlossesMain
+        word={word}
+        wordData={wordData}
+        resetFocusRef={resetFocusRef}
+      />
+    );
   return (
     <>
       <Header searchWord={word} />

@@ -5,12 +5,23 @@ import Word from '../interfaces/Word';
 interface GlossesMainInteface {
   word: string;
   wordData: Word;
+  resetFocusRef: React.MutableRefObject<
+    HTMLDivElement | HTMLHeadingElement | null
+  >;
 }
 
-export default function GlossesMain({ word, wordData }: GlossesMainInteface) {
+export default function GlossesMain({
+  word,
+  wordData,
+  resetFocusRef,
+}: GlossesMainInteface) {
   return (
     <>
-      <h1 className="mt-3 text-center text-4xl font-black leading-tight text-dark">
+      <h1
+        className="mt-3 text-center text-4xl font-black leading-tight text-dark outline-none"
+        tabIndex={-1}
+        ref={resetFocusRef}
+      >
         {wordData.word}
       </h1>
       <h2 className="mb-3 text-center italic leading-tight text-gray">
