@@ -1,13 +1,11 @@
 import { Link } from 'react-router-dom';
 import partsOfSpeech from '../partsOfSpeech';
 import Word from '../interfaces/Word';
+import FocusResetProps from '../interfaces/FocusResetProps';
 
-interface GlossesMainInteface {
+interface GlossesMainInteface extends FocusResetProps {
   word: string;
   wordData: Word;
-  resetFocusRef: React.MutableRefObject<
-    HTMLDivElement | HTMLHeadingElement | null
-  >;
 }
 
 export default function GlossesMain({

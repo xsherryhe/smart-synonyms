@@ -1,14 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import FocusResetProps from '../interfaces/FocusResetProps';
+
+interface SearchProps extends FocusResetProps {
+  word?: string;
+  placeholder?: string;
+  borderTailwind?: string;
+}
 
 export default function Search({
   word = '',
   placeholder = 'Search...',
   borderTailwind = 'border-transparent border-2 focus-visible:border-gray peer-focus-visible:border-gray',
-}) {
+  resetFocusRef,
+}: SearchProps) {
   const [searchValue, setSearchValue] = useState(word);
+
+  useEffect(() => {
+    if (resetFocusRef?.current) resetFocusRef.current.focus();
+  }, [resetFocusRef]);
 
   function updateSearchValue(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchValue(e.target.value);

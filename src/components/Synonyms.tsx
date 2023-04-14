@@ -7,10 +7,11 @@ import {
   withErrorHandling,
   WithErrorHandlingProps,
 } from './higher-order/withErrorHandling';
+import FocusResetProps from '../interfaces/FocusResetProps';
 
-interface SynonymsBaseProps extends WithErrorHandlingProps {}
+interface SynonymsBaseProps extends WithErrorHandlingProps, FocusResetProps {}
 
-function SynonymsBase({ handleErrors }: SynonymsBaseProps) {
+function SynonymsBase({ handleErrors, resetFocusRef }: SynonymsBaseProps) {
   const { word, pos, posOffset } = useParams() as {
     word: string;
     pos: string;
@@ -32,11 +33,17 @@ function SynonymsBase({ handleErrors }: SynonymsBaseProps) {
     getSynset();
   }, [getSynset]);
 
+  useEffect(() => {
+    if (resetFocusRef?.current) resetFocusRef.current.focus();
+  }, [resetFocusRef, synset]);
+
   if (!synset) return <div>Loading...</div>;
   return (
     <>
       <Header searchWord={word} />
-      <h1>{synset.words.join(' ')}</h1>
+      <h1 className="outline-none" tabIndex={-1} ref={resetFocusRef}>
+        {synset.words.join(' ')}
+      </h1>
       <h2>{synset.definition}</h2>
       {synset.synonyms.map(({ pos_offset: posOffset, words, definition }) => (
         <div key={posOffset}>

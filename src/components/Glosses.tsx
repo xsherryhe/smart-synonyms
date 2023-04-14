@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import fetcher from '../fetcher';
 import Word from '../interfaces/Word';
@@ -8,16 +8,13 @@ import {
 } from './higher-order/withErrorHandling';
 import Header from './Header';
 import GlossesMain from './GlossesMain';
+import FocusResetProps from '../interfaces/FocusResetProps';
 
-interface GlossesBaseProps extends WithErrorHandlingProps {}
+interface GlossesBaseProps extends WithErrorHandlingProps, FocusResetProps {}
 
-function GlossesBase({ handleErrors }: GlossesBaseProps) {
+function GlossesBase({ handleErrors, resetFocusRef }: GlossesBaseProps) {
   const { word } = useParams() as { word: string };
   const [wordData, setWordData] = useState<Word | false | null>(null);
-
-  const resetFocusRef = useRef<HTMLDivElement | HTMLHeadingElement | null>(
-    null
-  );
 
   useEffect(() => {
     async function getGlosses() {
@@ -30,8 +27,8 @@ function GlossesBase({ handleErrors }: GlossesBaseProps) {
   }, [word, handleErrors]);
 
   useEffect(() => {
-    if (resetFocusRef.current) resetFocusRef.current.focus();
-  }, [wordData]);
+    if (resetFocusRef?.current) resetFocusRef.current.focus();
+  }, [wordData, resetFocusRef]);
 
   let main;
   if (wordData === null) main = <div>Loading...</div>;
