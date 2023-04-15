@@ -53,7 +53,7 @@ function GlossesBase({ handleErrors, resetFocusRef }: GlossesBaseProps) {
   return (
     <>
       <Header searchWord={word} />
-      {main}
+      <main>{main}</main>
     </>
   );
 }
