@@ -5,9 +5,7 @@ import Home from './components/Home';
 import Synonyms from './components/Synonyms';
 
 function App() {
-  const resetFocusRef = useRef<
-    HTMLDivElement | HTMLHeadingElement | HTMLInputElement | null
-  >(null);
+  const resetFocusRef = useRef<HTMLElement>(null);
 
   return (
     <div className="App">

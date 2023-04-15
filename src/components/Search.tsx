@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, RefObject } from 'react';
 import { Link } from 'react-router-dom';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -28,6 +28,13 @@ export default function Search({
 
   return (
     <div className="search flex h-8 min-w-[70vw] rounded-sm">
+      <label
+        htmlFor="search"
+        className="sr-only"
+        ref={resetFocusRef as RefObject<HTMLLabelElement> | undefined}
+      >
+        Search
+      </label>
       <input
         type="text"
         name="search"

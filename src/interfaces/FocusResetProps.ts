@@ -1,5 +1,5 @@
+import { RefObject } from 'react';
+
 export default interface FocusResetProps {
-  resetFocusRef?: React.MutableRefObject<
-    HTMLDivElement | HTMLHeadingElement | HTMLInputElement | null
-  >;
+  resetFocusRef?: RefObject<HTMLElement>;
 }

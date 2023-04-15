@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, RefObject } from 'react';
 import { useParams } from 'react-router-dom';
 import fetcher from '../fetcher';
 import Word from '../interfaces/Word';
@@ -34,7 +34,11 @@ function GlossesBase({ handleErrors, resetFocusRef }: GlossesBaseProps) {
   if (wordData === null) main = <div>Loading...</div>;
   else if (wordData === false)
     main = (
-      <div className="outline-none" tabIndex={-1} ref={resetFocusRef}>
+      <div
+        className="outline-none"
+        tabIndex={-1}
+        ref={resetFocusRef as RefObject<HTMLDivElement> | undefined}
+      >
         Word not found!
       </div>
     );

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { RefObject, useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import fetcher from '../fetcher';
 import { SynsetWithSynonyms } from '../interfaces/Synset';
@@ -41,7 +41,11 @@ function SynonymsBase({ handleErrors, resetFocusRef }: SynonymsBaseProps) {
   return (
     <>
       <Header searchWord={word} />
-      <h1 className="outline-none" tabIndex={-1} ref={resetFocusRef}>
+      <h1
+        className="outline-none"
+        tabIndex={-1}
+        ref={resetFocusRef as RefObject<HTMLHeadingElement>}
+      >
         {synset.words.join(' ')}
       </h1>
       <h2>{synset.definition}</h2>

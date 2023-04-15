@@ -1,3 +1,4 @@
+import { RefObject } from 'react';
 import { Link } from 'react-router-dom';
 import partsOfSpeech from '../partsOfSpeech';
 import Word from '../interfaces/Word';
@@ -18,7 +19,7 @@ export default function GlossesMain({
       <h1
         className="mt-3 text-center text-4xl font-black leading-tight text-dark outline-none"
         tabIndex={-1}
-        ref={resetFocusRef}
+        ref={resetFocusRef as RefObject<HTMLHeadingElement> | undefined}
       >
         {wordData.word}
       </h1>
