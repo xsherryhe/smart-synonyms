@@ -28,11 +28,7 @@ export default function Search({
 
   return (
     <div className="search flex h-8 min-w-[70vw] rounded-sm">
-      <label
-        htmlFor="search"
-        className="sr-only"
-        ref={resetFocusRef as RefObject<HTMLLabelElement> | undefined}
-      >
+      <label htmlFor="search" className="sr-only">
         Search
       </label>
       <input
@@ -42,6 +38,8 @@ export default function Search({
         onChange={updateSearchValue}
         value={searchValue}
         placeholder={placeholder}
+        tabIndex={-1}
+        ref={resetFocusRef as RefObject<HTMLInputElement> | undefined}
         className={`peer flex-1 rounded-l-sm border-r-0 border-solid p-1 outline-none ${borderTailwind}`}
       />
       <Link

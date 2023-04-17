@@ -17,7 +17,7 @@ jest.mock(
 
 describe('Home', () => {
   describe('structure', () => {
-    it('renders a search bar with the correct placeholder', () => {
+    it('renders a search bar with the correct placeholder text', () => {
       render(<Home />);
       const searchBar = screen.getByText('Search a word...');
       expect(searchBar).toBeInTheDocument();
