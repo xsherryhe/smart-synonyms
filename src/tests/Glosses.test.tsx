@@ -83,7 +83,7 @@ describe('Glosses', () => {
         expect(heading).toHaveTextContent('hello');
       });
 
-      it('renders links for glosses with buttons containing definitions and examples', async () => {
+      it('renders links for glosses with correct routes to synonym pages', async () => {
         render(<Glosses />);
         const links = await screen.findAllByRole('link');
         const firstLink = links[0];
