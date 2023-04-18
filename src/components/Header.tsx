@@ -11,7 +11,7 @@ export default function Header({ searchWord = '' }) {
         className="flex rounded-sm border-2 border-solid border-transparent text-3xl text-light outline-none hover:bg-dark-highlight focus-visible:border-gray"
         to="/"
       >
-        <FontAwesomeIcon icon={faHouse} />
+        <FontAwesomeIcon icon={faHouse} title="Home" />
       </Link>
       <Search word={searchWord} />
     </header>
