@@ -83,14 +83,7 @@ describe('Glosses', () => {
         expect(heading).toHaveTextContent('hello');
       });
 
-      it('renders links for glosses with correct routes to synonym pages', async () => {
-        render(<Glosses />);
-        const links = await screen.findAllByRole('link');
-        const firstLink = links[0];
-        expect(firstLink).toHaveAttribute('href', '/hello/n/1/synonyms');
-      });
-
-      it('renders buttons for glosses containing definitions and examples', async () => {
+      it('renders links with buttons for glosses containing definitions and examples', async () => {
         render(<Glosses />);
         const links = await screen.findAllByRole('link');
         const firstLink = links[0];
@@ -101,6 +94,13 @@ describe('Glosses', () => {
 
         const example = within(button).getByText('hello there!');
         expect(example).toBeInTheDocument();
+      });
+
+      it('renders links for glosses with correct routes to synonym pages', async () => {
+        render(<Glosses />);
+        const links = await screen.findAllByRole('link');
+        const firstLink = links[0];
+        expect(firstLink).toHaveAttribute('href', '/hello/n/1/synonyms');
       });
     });
   });
