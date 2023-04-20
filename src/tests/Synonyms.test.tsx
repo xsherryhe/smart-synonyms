@@ -65,12 +65,48 @@ describe('Synonyms', () => {
   });
 
   describe('structure', () => {
-    // renders header
-    // when fetcher returns synset data
-    //--renders h1 with synset words
-    //--renders h2 with synset definition
-    //--renders synonym synsets with definitions
-    //--renders a regenerate button
+    it('renders a header with the searched word passed in', async () => {
+      render(<Synonyms />);
+      await waitFor(() => expect(fetcher).toHaveBeenCalled());
+
+      const header = screen.getByRole('banner');
+      expect(header).toHaveTextContent('foo');
+    });
+
+    describe('when fetcher returns synset data', () => {
+      it('renders an h1 with the synset words', async () => {
+        render(<Synonyms />);
+
+        const words = await screen.findByRole('heading', { level: 1 });
+        expect(words).toHaveTextContent('foo bar');
+      });
+
+      it('renders an h2 with the synset definition', async () => {
+        render(<Synonyms />);
+
+        const definition = await screen.findByRole('heading', { level: 2 });
+        expect(definition).toHaveTextContent('just a word used for testing');
+      });
+
+      it('renders synonym synsets with definitions', async () => {
+        render(<Synonyms />);
+
+        const synonymWords = await screen.findByText('hello world');
+        expect(synonymWords).toBeInTheDocument();
+
+        const synonymDefinition = screen.getByText(
+          'more words used for testing'
+        );
+        expect(synonymDefinition).toBeInTheDocument();
+      });
+
+      it('renders a regenerate button', async () => {
+        render(<Synonyms />);
+
+        const button = await screen.findByRole('button');
+        expect(button).toHaveTextContent('Regenerate');
+      });
+    });
   });
 
   describe('events', () => {

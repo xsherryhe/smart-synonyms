@@ -37,11 +37,11 @@ function SynonymsBase({ handleErrors, resetFocusRef }: SynonymsBaseProps) {
     if (resetFocusRef?.current) resetFocusRef.current.focus();
   }, [resetFocusRef, synset]);
 
-  if (!synset) return <div>Loading...</div>;
-  return (
-    <>
-      <Header searchWord={word} />
-      <main>
+  let main;
+  if (!synset) main = <div>Loading...</div>;
+  else
+    main = (
+      <>
         <h1
           className="outline-none"
           tabIndex={-1}
@@ -62,7 +62,13 @@ function SynonymsBase({ handleErrors, resetFocusRef }: SynonymsBaseProps) {
         >
           Regenerate
         </button>
-      </main>
+      </>
+    );
+
+  return (
+    <>
+      <Header searchWord={word} />
+      <main>{main}</main>
     </>
   );
 }
