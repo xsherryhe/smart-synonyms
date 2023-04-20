@@ -3,6 +3,7 @@ import fetcher from '../fetcher';
 
 import Glosses from '../components/Glosses';
 import Word from '../interfaces/Word';
+import { createRef } from 'react';
 
 jest.mock('react-router-dom', () => ({
   useParams: () => ({ word: 'hello' }),
@@ -21,6 +22,31 @@ jest.mock(
 );
 
 describe('Glosses', () => {
+  function mockWordDataReturnValue() {
+    const mockWordData: Word = {
+      word: 'hello',
+      glosses: [
+        {
+          id: '1',
+          pos: 'n',
+          synsets: [
+            {
+              pos_offset: 1,
+              words: ['hello'],
+              definition: 'a greeting',
+              examples: ['hello there!'],
+            },
+          ],
+        },
+      ],
+    };
+
+    (fetcher as jest.Mock).mockReturnValue({
+      type: 'success',
+      data: mockWordData,
+    });
+  }
+
   beforeEach(() => {
     (fetcher as jest.Mock).mockReturnValue({ type: 'success', data: false });
   });
@@ -29,6 +55,29 @@ describe('Glosses', () => {
     it('calls fetcher with word route using word from params', async () => {
       render(<Glosses />);
       await waitFor(() => expect(fetcher).toHaveBeenCalledWith('words/hello'));
+    });
+
+    describe('if reset focus ref is passed in', () => {
+      describe('when fetcher returns data of false', () => {
+        it('resets focus to "Word not found" message', async () => {
+          const ref = createRef<HTMLElement>();
+          render(<Glosses resetFocusRef={ref} />);
+
+          const wordNotFound = await screen.findByText(/word not found/i);
+          await waitFor(() => expect(wordNotFound).toHaveFocus());
+        });
+      });
+
+      describe('when fetcher returns word data', () => {
+        beforeEach(mockWordDataReturnValue);
+        it('resets focus to the h1 with the searched word', async () => {
+          const ref = createRef<HTMLElement>();
+          render(<Glosses resetFocusRef={ref} />);
+
+          const heading = await screen.findByRole('heading', { level: 1 });
+          await waitFor(() => expect(heading).toHaveFocus());
+        });
+      });
     });
   });
 
@@ -51,30 +100,7 @@ describe('Glosses', () => {
     });
 
     describe('when fetcher returns word data', () => {
-      beforeEach(() => {
-        const mockWordData: Word = {
-          word: 'hello',
-          glosses: [
-            {
-              id: '1',
-              pos: 'n',
-              synsets: [
-                {
-                  pos_offset: 1,
-                  words: ['hello'],
-                  definition: 'a greeting',
-                  examples: ['hello there!'],
-                },
-              ],
-            },
-          ],
-        };
-
-        (fetcher as jest.Mock).mockReturnValue({
-          type: 'success',
-          data: mockWordData,
-        });
-      });
+      beforeEach(mockWordDataReturnValue);
 
       it('renders an h1 with the searched word', async () => {
         render(<Glosses />);
