@@ -1,5 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import fetcher from '../fetcher';
+
 import Synonyms from '../components/Synonyms';
 import { SynsetWithSynonyms } from '../interfaces/Synset';
 import { createRef } from 'react';
@@ -22,22 +24,22 @@ jest.mock(
 );
 
 describe('Synonyms', () => {
-  beforeEach(() => {
-    const mockSynsetData: SynsetWithSynonyms = {
-      pos_offset: 1,
-      words: ['foo', 'bar'],
-      definition: 'just a word used for testing',
-      examples: ['engineers love using the word foo'],
-      synonyms: [
-        {
-          pos_offset: 2,
-          words: ['hello', 'world'],
-          definition: 'more words used for testing',
-          examples: ['well hello there'],
-        },
-      ],
-    };
+  const mockSynsetData: SynsetWithSynonyms = {
+    pos_offset: 1,
+    words: ['foo', 'bar'],
+    definition: 'just a word used for testing',
+    examples: ['engineers love using the word foo'],
+    synonyms: [
+      {
+        pos_offset: 2,
+        words: ['hello', 'world'],
+        definition: 'more words used for testing',
+        examples: ['well hello there'],
+      },
+    ],
+  };
 
+  beforeEach(() => {
     (fetcher as jest.Mock).mockReturnValue({
       type: 'success',
       data: mockSynsetData,
@@ -110,8 +112,63 @@ describe('Synonyms', () => {
   });
 
   describe('events', () => {
-    // when regenerate button is clicked (do a second mock return value with different data)
-    //--calls fetcher with synset route using word, pos, and posOffset from params again
-    //--renders synonym synsets from new fetcher call
+    describe('when regenerate button is clicked', () => {
+      beforeEach(() => {
+        const mockSynsetData2: SynsetWithSynonyms = {
+          pos_offset: 1,
+          words: ['foo', 'bar'],
+          definition: 'just a word used for testing',
+          examples: ['engineers love using the word foo'],
+          synonyms: [
+            {
+              pos_offset: 3,
+              words: ['goodbye', 'globe'],
+              definition: 'a third set of testing words',
+              examples: ['around the globe'],
+            },
+          ],
+        };
+
+        (fetcher as jest.Mock)
+          .mockReturnValueOnce({ type: 'success', data: mockSynsetData })
+          .mockReturnValueOnce({ type: 'success', data: mockSynsetData2 });
+      });
+
+      it('calls fetcher again with synset route using word, pos, and posOffset from params', async () => {
+        render(<Synonyms />);
+        await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(1));
+
+        const button = await screen.findByRole('button');
+        userEvent.click(button);
+
+        await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(2));
+        expect(fetcher).toHaveBeenLastCalledWith('synsets/n/1', {
+          query: 'word=foo',
+        });
+      });
+
+      it('updates synonym synsets with result from new fetcher call', async () => {
+        render(<Synonyms />);
+
+        const button = await screen.findByRole('button');
+        userEvent.click(button);
+
+        const synonymWords = await screen.findByText('goodbye globe');
+        expect(synonymWords).toBeInTheDocument();
+
+        const oldSynonymWords = screen.queryByText('hello world');
+        expect(oldSynonymWords).not.toBeInTheDocument();
+
+        const synonymDefinition = screen.getByText(
+          'a third set of testing words'
+        );
+        expect(synonymDefinition).toBeInTheDocument();
+
+        const oldSynonymDefinition = screen.queryByText(
+          'more words used for testing'
+        );
+        expect(oldSynonymDefinition).not.toBeInTheDocument();
+      });
+    });
   });
 });
