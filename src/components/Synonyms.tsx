@@ -1,4 +1,4 @@
-import { RefObject, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import fetcher from '../fetcher';
 import { SynsetWithSynonyms } from '../interfaces/Synset';
@@ -8,6 +8,7 @@ import {
   WithErrorHandlingProps,
 } from './higher-order/withErrorHandling';
 import FocusResetProps from '../interfaces/FocusResetProps';
+import SynonymsMain from './SynonymsMain';
 
 interface SynonymsBaseProps extends WithErrorHandlingProps, FocusResetProps {}
 
@@ -41,28 +42,11 @@ function SynonymsBase({ handleErrors, resetFocusRef }: SynonymsBaseProps) {
   if (!synset) main = <div>Loading...</div>;
   else
     main = (
-      <>
-        <h1
-          className="outline-none"
-          tabIndex={-1}
-          ref={resetFocusRef as RefObject<HTMLHeadingElement>}
-        >
-          {synset.words.join(' ')}
-        </h1>
-        <h2>{synset.definition}</h2>
-        {synset.synonyms.map(({ pos_offset: posOffset, words, definition }) => (
-          <div key={posOffset}>
-            <h3>{words.join(' ')}</h3>
-            <p>{definition}</p>
-          </div>
-        ))}
-        <button
-          onClick={getSynset}
-          className="rounded-sm bg-dark text-white hover:bg-dark-highlight"
-        >
-          Regenerate
-        </button>
-      </>
+      <SynonymsMain
+        synset={synset}
+        getSynset={getSynset}
+        resetFocusRef={resetFocusRef}
+      />
     );
 
   return (
