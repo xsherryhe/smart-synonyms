@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import fetcher from '../fetcher';
 import { SynsetWithSynonyms } from '../interfaces/Synset';
 import Header from './Header';
@@ -52,6 +52,9 @@ function SynonymsBase({ handleErrors, resetFocusRef }: SynonymsBaseProps) {
   return (
     <>
       <Header searchWord={word} />
+      <Link to={`/${word}`}>
+        <button tabIndex={-1}>all definitions</button>
+      </Link>
       <main>{main}</main>
     </>
   );
