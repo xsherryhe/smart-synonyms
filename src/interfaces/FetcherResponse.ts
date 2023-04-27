@@ -1,6 +1,8 @@
-interface ErrorData {
-  error: string;
+export interface ErrorData {
+  error: string | string[];
 }
+
+export type ErrorDataFromServer = { error?: string; errors?: string[] };
 
 export interface SuccessResponse {
   type: 'success';

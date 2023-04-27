@@ -1,9 +1,15 @@
 import server from './server';
-import { FetcherResponse } from './interfaces/FetcherResponse';
+import {
+  ErrorDataFromServer,
+  FetcherResponse,
+} from './interfaces/FetcherResponse';
 
 const errorMessage = 'Sorry, something went wrong.';
-const statusErrorMessage = (status: number) =>
-  ({ 404: 'Page not found.' }[status] || errorMessage);
+const getErrorMessage = (status: number, data: ErrorDataFromServer) =>
+  data.error ||
+  data.errors ||
+  { 404: 'Page not found.' }[status] ||
+  errorMessage;
 
 function duration(milliseconds: number, promise: Promise<any>) {
   const timeout: Promise<Error> = new Promise((_, reject) =>
@@ -54,7 +60,7 @@ export default async function fetcher(
     return {
       type: 'error',
       status,
-      data: { error: statusErrorMessage(status) },
+      data: { error: getErrorMessage(status, data as ErrorDataFromServer) },
     };
   }
 }
