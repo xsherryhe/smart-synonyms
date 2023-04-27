@@ -13,7 +13,7 @@ interface SearchProps extends FocusResetProps {
 export default function Search({
   word = '',
   placeholder = 'Search...',
-  borderTailwind = 'border-transparent border-2 focus-visible:border-gray peer-focus-visible:border-gray',
+  borderTailwind = 'border-transparent border focus-visible:border-gray peer-focus-visible:border-gray',
   resetFocusRef,
 }: SearchProps) {
   const [searchValue, setSearchValue] = useState(word);
@@ -27,7 +27,7 @@ export default function Search({
   }
 
   return (
-    <div className="search flex h-8 min-w-[70vw] rounded-sm">
+    <div className="search flex h-8 min-w-[75vw] rounded-sm">
       <label htmlFor="search" className="sr-only">
         Search
       </label>
@@ -38,6 +38,7 @@ export default function Search({
         onChange={updateSearchValue}
         value={searchValue}
         placeholder={placeholder}
+        maxLength={30}
         tabIndex={-1}
         ref={resetFocusRef as RefObject<HTMLInputElement> | undefined}
         className={`peer flex-1 rounded-l-sm border-r-0 border-solid p-1 outline-none ${borderTailwind}`}
