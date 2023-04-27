@@ -39,7 +39,8 @@ function GlossesBase({ handleErrors, resetFocusRef }: GlossesBaseProps) {
         tabIndex={-1}
         ref={resetFocusRef as RefObject<HTMLDivElement> | undefined}
       >
-        Word not found!
+        Word not found! Check that the word you searched is a content word
+        (noun, verb, adjective, or adverb).
       </div>
     );
   else
