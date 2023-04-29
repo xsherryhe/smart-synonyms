@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FocusResetProps from '../interfaces/FocusResetProps';
+import { displayInput, sanitizeInput } from '../utilities';
 
 interface SearchProps extends FocusResetProps {
   word?: string;
@@ -16,7 +17,8 @@ export default function Search({
   borderTailwind = 'border-transparent border focus-visible:border-gray peer-focus-visible:border-gray',
   resetFocusRef,
 }: SearchProps) {
-  const [searchValue, setSearchValue] = useState(word);
+  const displayWord = displayInput(word);
+  const [searchValue, setSearchValue] = useState(displayWord);
 
   useEffect(() => {
     if (resetFocusRef?.current) resetFocusRef.current.focus();
@@ -45,7 +47,7 @@ export default function Search({
       />
       <Link
         className={`w-8 rounded-r-sm bg-light text-dark hover:bg-dark-highlight hover:text-light ${borderTailwind}`}
-        to={`/${searchValue}`}
+        to={`/${sanitizeInput(searchValue)}`}
       >
         <button
           className="h-full w-full border-none bg-transparent"
