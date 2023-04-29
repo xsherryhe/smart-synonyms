@@ -26,9 +26,9 @@ jest.mock(
 describe('Synonyms', () => {
   const mockSynsetData: SynsetWithSynonyms = {
     pos_offset: 1,
-    words: ['foo', 'bar'],
+    words: ['foo!', 'bar'],
     definition: 'just a word used for testing',
-    examples: ['engineers love using the word foo'],
+    examples: ['engineers love using the word foo!'],
     synonyms: [
       {
         pos_offset: 2,
@@ -80,7 +80,7 @@ describe('Synonyms', () => {
         render(<Synonyms />);
 
         const words = await screen.findByRole('heading', { level: 1 });
-        expect(words).toHaveTextContent('foo bar');
+        expect(words).toHaveTextContent('foo! bar');
       });
 
       it('renders an h2 with the synset definition', async () => {
@@ -116,9 +116,9 @@ describe('Synonyms', () => {
       beforeEach(() => {
         const mockSynsetData2: SynsetWithSynonyms = {
           pos_offset: 1,
-          words: ['foo', 'bar'],
+          words: ['foo!', 'bar'],
           definition: 'just a word used for testing',
-          examples: ['engineers love using the word foo'],
+          examples: ['engineers love using the word foo!'],
           synonyms: [
             {
               pos_offset: 3,

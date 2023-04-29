@@ -24,7 +24,7 @@ jest.mock(
 describe('Glosses', () => {
   function mockWordDataReturnValue() {
     const mockWordData: Word = {
-      word: 'hello',
+      word: 'hello!',
       glosses: [
         {
           id: '1',
@@ -102,11 +102,11 @@ describe('Glosses', () => {
     describe('when fetcher returns word data', () => {
       beforeEach(mockWordDataReturnValue);
 
-      it('renders an h1 with the searched word', async () => {
+      it('renders an h1 with the found word', async () => {
         render(<Glosses />);
         const heading = await screen.findByRole('heading', { level: 1 });
 
-        expect(heading).toHaveTextContent('hello');
+        expect(heading).toHaveTextContent('hello!');
       });
 
       it('renders links with buttons for glosses containing definitions and examples', async () => {
