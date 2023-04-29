@@ -1,5 +1,5 @@
 import { useEffect, useState, RefObject } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FocusResetProps from '../interfaces/FocusResetProps';
@@ -19,6 +19,8 @@ export default function Search({
 }: SearchProps) {
   const displayWord = displayInput(word);
   const [searchValue, setSearchValue] = useState(displayWord);
+  const sanitizedSearchValue = sanitizeInput(searchValue);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (resetFocusRef?.current) resetFocusRef.current.focus();
@@ -26,6 +28,12 @@ export default function Search({
 
   function updateSearchValue(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchValue(e.target.value);
+  }
+
+  function submitSearchValue(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key !== 'Enter') return;
+
+    navigate(`/${sanitizedSearchValue}`);
   }
 
   return (
@@ -38,6 +46,7 @@ export default function Search({
         name="search"
         id="search"
         onChange={updateSearchValue}
+        onKeyDown={submitSearchValue}
         value={searchValue}
         placeholder={placeholder}
         maxLength={30}
@@ -47,7 +56,7 @@ export default function Search({
       />
       <Link
         className={`w-8 rounded-r-sm bg-light text-dark hover:bg-dark-highlight hover:text-light ${borderTailwind}`}
-        to={`/${sanitizeInput(searchValue)}`}
+        to={`/${sanitizedSearchValue}`}
       >
         <button
           className="h-full w-full border-none bg-transparent"
