@@ -1,12 +1,14 @@
 import { render, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Search from '../components/Search';
 
 jest.mock('react-router-dom', () => ({
   Link: ({ to, children }: { to: string; children: React.ReactNode }) => (
     <a href={to}>{children}</a>
   ),
+  useNavigate: jest.fn(),
 }));
 
 describe('Search', () => {
@@ -70,6 +72,18 @@ describe('Search', () => {
       user.type(input, 'abc');
 
       await waitFor(() => expect(link).toHaveAttribute('href', '/abc'));
+    });
+
+    it('navigates to glosses page when user presses enter inside the input field', async () => {
+      const navigateMock = jest.fn();
+      (useNavigate as jest.Mock).mockReturnValue(navigateMock);
+
+      render(<Search />);
+      const input = screen.getByRole('textbox') as HTMLInputElement;
+
+      const user = userEvent.setup();
+      user.type(input, 'abc{enter}');
+      await waitFor(() => expect(navigateMock).toHaveBeenCalledWith('/abc'));
     });
   });
 });
