@@ -29,6 +29,12 @@ describe('Search', () => {
       expect(input).toHaveValue('Foo');
     });
 
+    it('renders an input with formatted word prop as initial value', () => {
+      render(<Search word="apple_tree" />);
+      const input = screen.getByRole('textbox') as HTMLInputElement;
+      expect(input).toHaveValue('apple tree');
+    });
+
     it('renders a link with a button and a search icon', () => {
       render(<Search />);
       const link = screen.getByRole('link');
