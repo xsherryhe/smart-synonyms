@@ -1,4 +1,4 @@
-import { RefObject } from 'react';
+import { RefObject, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import partsOfSpeech from '../partsOfSpeech';
 import Word from '../interfaces/Word';
@@ -14,6 +14,10 @@ export default function GlossesMain({
   wordData,
   resetFocusRef,
 }: GlossesMainInteface) {
+  const action = useRef(
+    'ontouchstart' in window || navigator.maxTouchPoints > 0 ? 'tap' : 'click'
+  );
+
   return (
     <>
       <h1
@@ -24,7 +28,7 @@ export default function GlossesMain({
         {wordData.word}
       </h1>
       <h2 className="mb-3 text-center italic leading-tight text-gray">
-        tap to select definition
+        {action.current} to select definition
       </h2>
       {wordData.glosses.map(({ id, pos, synsets }) => (
         <div
