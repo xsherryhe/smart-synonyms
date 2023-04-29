@@ -12,6 +12,9 @@ jest.mock('react-router-dom', () => ({
     pos: 'n',
     posOffset: '1',
   }),
+  Link: ({ to, children }: { to: string; children: React.ReactNode }) => (
+    <a href={to}>{children}</a>
+  ),
 }));
 
 jest.mock('../fetcher');
@@ -75,6 +78,14 @@ describe('Synonyms', () => {
       expect(header).toHaveTextContent('foo');
     });
 
+    it('renders a link back to glosses page', async () => {
+      render(<Synonyms />);
+      await waitFor(() => expect(fetcher).toHaveBeenCalled());
+
+      const link = screen.getByRole('link');
+      expect(link).toHaveAttribute('href', '/foo');
+    });
+
     describe('when fetcher returns synset data', () => {
       it('renders an h1 with the synset words', async () => {
         render(<Synonyms />);
@@ -105,8 +116,10 @@ describe('Synonyms', () => {
       it('renders a regenerate button', async () => {
         render(<Synonyms />);
 
-        const button = await screen.findByRole('button');
-        expect(button).toHaveTextContent('Regenerate');
+        const button = await screen.findByRole('button', {
+          name: 'Regenerate',
+        });
+        expect(button).toBeInTheDocument();
       });
     });
   });
@@ -138,7 +151,9 @@ describe('Synonyms', () => {
         render(<Synonyms />);
         await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(1));
 
-        const button = await screen.findByRole('button');
+        const button = await screen.findByRole('button', {
+          name: 'Regenerate',
+        });
         userEvent.click(button);
 
         await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(2));
@@ -150,7 +165,9 @@ describe('Synonyms', () => {
       it('updates synonym synsets with result from new fetcher call', async () => {
         render(<Synonyms />);
 
-        const button = await screen.findByRole('button');
+        const button = await screen.findByRole('button', {
+          name: 'Regenerate',
+        });
         userEvent.click(button);
 
         const synonymWords = await screen.findByText('goodbye globe');
