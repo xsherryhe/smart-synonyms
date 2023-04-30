@@ -14,7 +14,7 @@ export default function SynonymsMain({
 }: SynonymsMainProps) {
   return (
     <>
-      <h1 className="outline-none">
+      <h1>
         <SynsetWords words={synset.words} resetFocusRef={resetFocusRef} />
       </h1>
       <h2>{synset.definition}</h2>
@@ -26,7 +26,7 @@ export default function SynonymsMain({
       ))}
       <button
         onClick={getSynset}
-        className="rounded-sm bg-dark text-white hover:bg-dark-highlight"
+        className="clickable rounded-sm bg-dark text-white hover:bg-dark-highlight"
       >
         Regenerate
       </button>

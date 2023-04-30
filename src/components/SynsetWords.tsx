@@ -27,13 +27,17 @@ export default function SynsetWords({
 
   return (
     <>
-      <button onClick={changeWord(-1)}>
+      <button className="clickable" onClick={changeWord(-1)}>
         <FontAwesomeIcon icon={faCircleChevronLeft} />
       </button>
-      <span tabIndex={-1} ref={resetFocusRef as RefObject<HTMLHeadingElement>}>
+      <span
+        className="outline-none"
+        tabIndex={-1}
+        ref={resetFocusRef as RefObject<HTMLHeadingElement>}
+      >
         {words[currWord]}
       </span>
-      <button onClick={changeWord(1)}>
+      <button className="clickable" onClick={changeWord(1)}>
         <FontAwesomeIcon icon={faCircleChevronRight} />
       </button>
     </>

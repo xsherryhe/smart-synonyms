@@ -52,7 +52,7 @@ function SynonymsBase({ handleErrors, resetFocusRef }: SynonymsBaseProps) {
   return (
     <>
       <Header searchWord={word} />
-      <Link to={`/${word}`}>
+      <Link className="clickable" to={`/${word}`}>
         <button tabIndex={-1}>all definitions</button>
       </Link>
       <main>{main}</main>
