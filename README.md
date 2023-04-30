@@ -30,9 +30,12 @@ This project is currently in progress. See my developer notes below!
   - I used the `:focus-visible` pseudo-class to customize what focus looked like, while ensuring that focus always remained visible for keyboard users.
   - Also related to keyboard navigation, tabbing through a page revealed double focus/tabbing on React Router Link components styled as buttons. This is because I usually style links as buttons by adding a `<button>` element as a child to the `<Link>` component. In order to fix this, I used `tabindex = -1` to remove the `<button>` child from the tab order, so that only the semantically meaningful Link received focus.
   - SVG elements don't accept `alt` attributes, but it's still important for them to be processable by screenreaders. I researched and found that the appropriate way to implement this was to use a `title` attribute on the SVG. This was pretty straightforward to add, since my icon library (FontAwesome) already had an API to add a `title` attribute on icon components.
+  - Client-side rendered apps come with the challenge of requiring manual focus resetting on route change. This is so that screenreaders announce the "title" of the content displayed by the new route, and focus is at the top of the content. With server-side rendering, this is something that screenreaders automatically do when served a new page from the server. In my client-side rendered app, I took care of this by passing around a React `ref` to HTML elements, and, on route change, using an effect to focus the HTML element that the `ref` was currently pointing to.
+    - There was a bit of a hurdle in TypeScript with passing around a single `ref` to different types of HTML elements. Usually, different HTML elements require different types of RefObjects (e.g., H1 elements require `RefObject<HeadingElement>`, label elements require `RefObject<LabelElement>`, and so forth). I ended up using type assertions to circumvent this issue. However, type assertions tend to feel slightly hacky/cheat-y to me, so still looking for better ways to handle this.
 
 ### This app was my first time building with...
 
 - Figma for UI/UX design
+- Tailwind CSS
 - TypeScript in React
 - [WordNet 3.0 Database from Princeton University](https://wordnet.princeton.edu/)
