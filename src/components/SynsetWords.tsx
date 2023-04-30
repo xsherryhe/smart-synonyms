@@ -1,15 +1,19 @@
-import { useState } from 'react';
+import { RefObject, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCircleChevronLeft,
   faCircleChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
+import FocusResetProps from '../interfaces/FocusResetProps';
 
-interface SynsetWordsProps {
+interface SynsetWordsProps extends FocusResetProps {
   words: string[];
 }
 
-export default function SynsetWords({ words }: SynsetWordsProps) {
+export default function SynsetWords({
+  words,
+  resetFocusRef,
+}: SynsetWordsProps) {
   const [currWord, setCurrWord] = useState<number>(0);
 
   function changeWord(dir: -1 | 1) {
@@ -26,7 +30,9 @@ export default function SynsetWords({ words }: SynsetWordsProps) {
       <button onClick={changeWord(-1)}>
         <FontAwesomeIcon icon={faCircleChevronLeft} />
       </button>
-      <span>{words[currWord]}</span>
+      <span tabIndex={-1} ref={resetFocusRef as RefObject<HTMLHeadingElement>}>
+        {words[currWord]}
+      </span>
       <button onClick={changeWord(1)}>
         <FontAwesomeIcon icon={faCircleChevronRight} />
       </button>
