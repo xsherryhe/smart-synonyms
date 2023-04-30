@@ -1,6 +1,7 @@
 import { RefObject } from 'react';
 import FocusResetProps from '../interfaces/FocusResetProps';
 import { SynsetWithSynonyms } from '../interfaces/Synset';
+import SynsetWords from './SynsetWords';
 
 interface SynonymsMainProps extends FocusResetProps {
   synset: SynsetWithSynonyms;
@@ -19,7 +20,7 @@ export default function SynonymsMain({
         tabIndex={-1}
         ref={resetFocusRef as RefObject<HTMLHeadingElement>}
       >
-        {synset.words.join(' ')}
+        <SynsetWords words={synset.words} />
       </h1>
       <h2>{synset.definition}</h2>
       {synset.synonyms.map(({ pos_offset: posOffset, words, definition }) => (
